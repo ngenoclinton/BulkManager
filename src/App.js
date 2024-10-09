@@ -8,6 +8,7 @@ import Navbar from './LandingPage/Components/navbar/Navbar';
 import Pricing from './LandingPage/Components/pricing/Pricing';
 import RegistrationPage from './LandingPage/Components/signup/Register';
 import LoginPage from './LandingPage/Components/signup/Login';
+import ContactSupport from './LandingPage/Components/contactSupport/ContactSupport';
 
 function App() {
   const location = useLocation(); // Hook to get current route
@@ -21,11 +22,14 @@ function App() {
         
       <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About />} />          
+          {/* Sub-routes for Support section */}
           <Route path="/pricing" element={<Pricing/>} />
           <Route path="/features" element={<Features />} />
           <Route path="/register" element={<RegistrationPage/>} />
           <Route path="/login" element={<LoginPage />} />
+        {/* Sub-routes for Support section */}
+        <Route path="/contact-support" element={<ContactSupport />} />
       </Routes>
     </>
   );

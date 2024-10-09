@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import {MessageSquare, Phone, Mail, Hash, Star, Menu, X, CircleCheckBig} from 'lucide-react';
+import { motion} from 'framer-motion';
+import {MessageSquare, Phone, Hash} from 'lucide-react';
 import ScrollSection from './ScrollSection';
-
-
-import Fiverr from '../../assets/images/resources/Fiverr-Pro.svg'
-import Group from '../../assets/images/resources/Group.svg';
-import wave from '../../assets/images/resources/VectorWave.svg';
-import Slogo from '../../assets/images/resources/S-logo.svg';
-import SocialMedia from '../../assets/images/resources/sm-Group.5.png';
 
 import HeroSection from './HeroSection';
 import ClientsGrid from './Clients';
 import Stats from './Stats';
 import AlternatingFeatures from './AlternateFeature';
+import Footer from '../Footer/Footer';
 
 export default function HomePage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -87,9 +81,9 @@ export default function HomePage() {
         </div>
     </section>
 
-    <section>
+    {/* <section>
       <ScrollSection />
-    </section>
+    </section> */}
 
       {/* Testimonials Section */}
       {/* Testimonials Section */}
@@ -111,47 +105,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12 px-4">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <h3 className="text-2xl font-bold mb-2">SMS & Voice</h3>
-            <p className="text-gray-400">Powerful communication solutions</p>
-          </div>
-          <div className="flex flex-col md:flex-row md:space-x-12 space-y-4 md:space-y-0">
-            <div>
-              <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Features</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
-              <p className="text-gray-400">contact@smsvoice.com</p>
-              <p className="text-gray-400">+1 (234) 567-890</p>
-            </div>
-          </div>
-        </div>
-        <div className="container mx-auto mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; 2023 SMS & Voice. All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            {/* {[<LinkedIn />].map((icon, index) => (
-              <motion.a 
-                key={index}
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors duration-300"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {icon}
-              </motion.a>
-            ))} */}
-          </div>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }

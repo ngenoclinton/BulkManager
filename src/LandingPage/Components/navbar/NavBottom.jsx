@@ -4,19 +4,28 @@ import {Menu, X} from 'lucide-react';
 import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 
 const menuItems = [
-    { name: 'Home', link:'/' },
+    { name: 'Home', path:'/' },
     { 
       name: 'Features',
-      link:"/features",
-      submenu: ['Mass Texting Service','Automated Calling','Bulk Emailing', 'Surveys', 'Emergency Notification','Customer Notification',]
+      path:"/features",
+      submenu: [
+        {name:'Mass Messaging',path: '/about/contact-support'},
+        {name:'Voice Calls', path: '/about/contact-support'},
+      ]
     },
-    { name: 'About',  link:"/about", submenu: ['Who we Are', 'Contact Us']
+    { name: 'Who we Are',  
+      path:"/about",  // Path for the main item
+      submenu: [
+        { name: 'How it works', path: '/how-it-works' },
+        { name: 'Contact Us', path: '/contact-support' }
+      ]
     },
     { 
       name: 'Pricing', 
-      link:'/pricing',
+      path:'/pricing',
     },
-    { name: 'Blog', link:"/blog" },
+    { name: 'Blog', 
+      path:"/blog" },
   ];
 const NavBottom=()=>{
 const [hoveredItem, setHoveredItem] = useState(null);
@@ -74,7 +83,7 @@ animate={navControls}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">            
              {/* Desktop menu */}
-          <div className="hidden md:flex md:items-center md:space-x-4 z-20">
+          <div className="hidden md:flex md:items-center md:space-x-4 z-30">
                 {menuItems.map((item) => (
                   <div
                     key={item.name}
@@ -83,7 +92,7 @@ animate={navControls}
                     onMouseLeave={() => setHoveredItem(null)}
                   >
                     <Link
-                      to={item.link}
+                      to={item.path}
                       className="text-gray-700 hover:text-[#f15c22] px-3 py-2 rounded-md text-base font-medium flex items-center transition-colors duration-200 relative group"
                     >
                       {item.name}
@@ -98,20 +107,20 @@ animate={navControls}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
-                            className="absolute z-20 -left-10 mt-2 w-80 rounded-b-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-hidden"
+                            className="absolute z-30 -left-10 mt-2 w-80 rounded-b-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-hidden"
                             style={{ borderTop: '5px solid #f15c22' }}
                           >
                             <div className="relative px-4 py-4">
                               {item.submenu.map((subItem, index) => (
-                                <a
-                                  key={subItem}
-                                  href="#"
+                                <Link
+                                  key={subItem.name}
+                                  to={subItem.path}
                                   className={`block px-4 py-3 text-base text-[#f15c22] hover:text-black hover transition-colors duration-200
                                     ${index !== item.submenu.length - 1 ? 'border-b border-gray-200' : ''}
                                   `}
                                 >
-                                  {subItem}
-                                </a>
+                                  {subItem.name}
+                                </Link>
                               ))}
                             </div>
                           </motion.div>
