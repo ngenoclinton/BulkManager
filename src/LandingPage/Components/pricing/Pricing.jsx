@@ -31,15 +31,15 @@ const BillingToggle = ({ isAnnual, setIsAnnual }) => (
 const PricingCard = ({ name, price, features, isPopular, ctaText }) => (
   <motion.div
     whileHover={{ y: -5 }}
-    className={`bg-white p-6 rounded-lg shadow-lg ${isPopular ? 'border-2 border-[#f15c22]' : ''}`}
+    className={`bg-white p-6 rounded-lg shadow-lg ${isPopular ? 'border-2 border-[#f15c22] relative' : ''}`}
   >
     {isPopular && (
-      <div className="bg-[#f15c22] text-white text-sm font-semibold py-1 px-4 rounded-full inline-block mb-4">
+      <div className="bg-[#f15c22] absolute text-white text-sm font-semibold py-1 px-4 rounded-full inline-block mb-4">
         Most Popular
       </div>
     )}
     <h3 className="text-xl font-semibold mb-2">{name}</h3>
-    <p className="text-3xl font-bold mb-4">KSH {price}<span className="text-sm font-normal">/month</span></p>
+    <p className="text-2xl font-bold mb-4">KSH {price}<span className="text-sm font-normal">/month</span></p>
     <ul className="mb-6">
       {features.map((feature, index) => (
         <li key={index} className="flex items-center mb-2">
@@ -172,7 +172,7 @@ const PricingPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <Header />
         <BillingToggle isAnnual={isAnnual} setIsAnnual={setIsAnnual} />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
