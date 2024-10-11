@@ -9,6 +9,9 @@ import Pricing from './LandingPage/Components/pricing/Pricing';
 import RegistrationPage from './LandingPage/Components/signup/Register';
 import LoginPage from './LandingPage/Components/signup/Login';
 import ContactSupport from './LandingPage/Components/contactSupport/ContactSupport';
+import HowItWorks from './LandingPage/Components/howItworks/HowItWorks';
+import FeaturesPage from './LandingPage/Components/Features/FeaturesPage';
+import PricingPage from './LandingPage/Components/pricing/Pricing';
 
 function App() {
   const location = useLocation(); // Hook to get current route
@@ -24,12 +27,14 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />          
           {/* Sub-routes for Support section */}
-          <Route path="/pricing" element={<Pricing/>} />
-          <Route path="/features" element={<Features />} />
+          <Route path="/pricing" element={<PricingPage/>} />
+          <Route path="/features" element={<FeaturesPage />} />
           <Route path="/register" element={<RegistrationPage/>} />
           <Route path="/login" element={<LoginPage />} />
         {/* Sub-routes for Support section */}
         <Route path="/contact-support" element={<ContactSupport />} />
+        {/* Sub-route for How it works section */}
+        <Route path='/how-it-works' element={<HowItWorks/>} />
       </Routes>
     </>
   );

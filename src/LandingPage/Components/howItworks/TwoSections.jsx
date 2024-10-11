@@ -1,8 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import 'remixicon/fonts/remixicon.css';
-
-
+import { 
+  RiFacebookFill, 
+  RiTwitterFill, 
+  RiInstagramFill, 
+  RiLinkedinFill, 
+  RiMailFill 
+} from 'react-icons/ri';
 
 const WaveDesign = () => (
   <svg className="w-full h-16 -mb-1" viewBox="0 0 1440 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,13 +19,11 @@ const SocialIcon = ({ Icon, href }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-gray-400 hover:text-white transition-colors duration-300"
+    className="text-gray-300 hover:text-white transition-colors duration-300"
     whileHover={{ scale: 1.2 }}
     whileTap={{ scale: 0.9 }}
   >
     <Icon size={24} />
-    <i className={Icon} style={{ fontSize: 24 }}></i>
-
   </motion.a>
 );
 
@@ -35,7 +37,7 @@ const FooterSection = ({ title, children }) => (
 const FooterLink = ({ href, children }) => (
   <motion.a
     href={href}
-    className="block text-gray-400 hover:text-white mb-2 transition-colors duration-300"
+    className="block text-gray-300 hover:text-white mb-2 transition-colors duration-300"
     whileHover={{ x: 5 }}
   >
     {children}
@@ -66,13 +68,13 @@ const NewsletterForm = () => (
 const Footer = () => {
   return (
     <footer className="relative bg-[#2C3E50] text-white">
-      <div className="absolute inset-0 bg-cover bg-center z-0" style={{backgroundImage: "url('https://cdn.pixabay.com/photo/2018/12/10/10/21/earth-3866609_640.jpg')"}}></div>
-      <div className="absolute inset-0 bg-black opacity-85 z-10"></div>
+      <div className="absolute inset-0 bg-cover bg-center z-0" style={{backgroundImage: "url('https://cdn.pixabay.com/photo/2018/03/15/16/11/background-3228704_640.jpg')"}}></div>
+      <div className="absolute inset-0 bg-black opacity-75 z-10"></div>
       <WaveDesign />
-      <div className="container mx-auto px-4 py-4 relative z-20">
+      <div className="container mx-auto px-4 py-12 relative z-20">
         <div className="flex flex-wrap -mx-4">
           <FooterSection title="About Us">
-            <p className="text-gray-400">
+            <p className="text-gray-300">
               We provide innovative communication solutions for businesses of all sizes.
             </p>
           </FooterSection>
@@ -91,37 +93,36 @@ const Footer = () => {
           </FooterSection>
           
           <FooterSection title="Contact Us">
-            <p className="text-gray-400 mb-2">123 Communication St, Tech City, 12345</p>
-            <p className="text-gray-400 mb-2">Phone: (123) 456-7890</p>
-            <p className="text-gray-400 mb-2">Email: info@example.com</p>
+            <p className="text-gray-300 mb-2">123 Communication St, Tech City, 12345</p>
+            <p className="text-gray-300 mb-2">Phone: (123) 456-7890</p>
+            <p className="text-gray-300 mb-2">Email: info@example.com</p>
           </FooterSection>
           
           <FooterSection title="Newsletter">
-            <p className="text-gray-400 mb-2">Stay updated with our latest news and offers.</p>
+            <p className="text-gray-300 mb-2">Stay updated with our latest news and offers.</p>
             <NewsletterForm />
           </FooterSection>
         </div>
         
-        <div className="mt-5 pt-8 border-t border-gray-700">
+        <div className="mt-8 pt-8 border-t border-gray-700">
           <div className="flex flex-wrap justify-between items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-2xl font-bold">SMS & Voice</h2>
+              <h2 className="text-2xl font-bold">YourCompany</h2>
             </motion.div>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-            <SocialIcon Icon="ri-facebook-fill" href="https://facebook.com" />
-            <SocialIcon Icon="ri-twitter-fill" href="https://twitter.com" />
-            <SocialIcon Icon="ri-instagram-fill" href="https://instagram.com" />
-            <SocialIcon Icon="ri-linkedin-fill" href="https://linkedin.com" />
-            <SocialIcon Icon="ri-mail-fill" href="mailto:info@example.com" />
-
+              <SocialIcon Icon={RiFacebookFill} href="https://facebook.com" />
+              <SocialIcon Icon={RiTwitterFill} href="https://twitter.com" />
+              <SocialIcon Icon={RiInstagramFill} href="https://instagram.com" />
+              <SocialIcon Icon={RiLinkedinFill} href="https://linkedin.com" />
+              <SocialIcon Icon={RiMailFill} href="mailto:info@example.com" />
             </div>
           </div>
-          <div className="mt-4 text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} SMS & Voice. All rights reserved.
+          <div className="mt-4 text-center text-gray-300 text-sm">
+            © {new Date().getFullYear()} YourCompany. All rights reserved.
           </div>
         </div>
       </div>

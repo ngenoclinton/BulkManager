@@ -42,7 +42,7 @@ export default function HomePage() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-800 font-sans mx-auto">
+    <div className="min-h-screen bg-gradient-to-b text-white-900 font-sans mx-auto">
 
       <HeroSection/>
 
@@ -54,7 +54,7 @@ export default function HomePage() {
 
       {/* Feature */}
       <AlternatingFeatures />
-      {/* Testimonials Section */}
+
     {/* Feature Highlights */}
     <section className="py-20 px-4 max-w-6xl mx-auto">
         <div className="container mx-auto">
@@ -81,11 +81,6 @@ export default function HomePage() {
         </div>
     </section>
 
-    {/* <section>
-      <ScrollSection />
-    </section> */}
-
-      {/* Testimonials Section */}
       {/* Testimonials Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto">

@@ -8,10 +8,10 @@ const menuItems = [
     { 
       name: 'Features',
       path:"/features",
-      submenu: [
-        {name:'Mass Messaging',path: '/about/contact-support'},
-        {name:'Voice Calls', path: '/about/contact-support'},
-      ]
+      // submenu: [
+      //   // {name:'Mass Messaging',path: '/about/contact-support'},
+      //   // {name:'Voice Calls', path: '/about/contact-support'},
+      // ]
     },
     { name: 'Who we Are',  
       path:"/about",  // Path for the main item

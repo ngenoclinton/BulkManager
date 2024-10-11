@@ -24,7 +24,7 @@ const HeroSection =()=>{
      {/* Hero Section */}
      {/* bg-gradient-to-r from-[#f15c22] to-[#f47a4d] */}
      <section className=" text-black py-16 px-4 z-0 max-w-6xl mx-auto">
-        <div className="container mx-auto flex flex-col md:flex-row items-center">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-evenly">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <motion.h1 
               className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
@@ -81,7 +81,7 @@ const HeroSection =()=>{
               </div>
             </motion.p>
             <motion.button 
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-400 hover:scale-1.s02 shadow-lg"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-7 py-2 rounded-xl font-semibold text-base transition-all duration-400 hover:scale-1.s02 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -90,14 +90,11 @@ const HeroSection =()=>{
            
           </div>
           <div className="md:w-1/2 z-0 flex flex-1 transform justify-center">
-            
-        {/* <div className='z-10 flex flex-1 transform justify-center'> */}
-            <motion.img src={SocialMedia} alt='Hero Image'
-             className='l-image transform scale-[1] md:scale-[1.1] xl:scale-[1.1] -z-0'
+            <motion.img src="https://img.freepik.com/free-vector/flat-design-people-talking-online_23-2149077907.jpg?size=626&ext=jpg&ga=GA1.1.1315670878.1727435405&semt=ais_hybrid" alt='Hero Image'
+             className='l-image rounded-xl transform scale-[1] md:scale-[1] xl:scale-[1.1] -z-0'
              initial={{ opacity: 0, x: 20 }}
              animate={{ opacity: 1, x: 0 }}
              transition={{ duration: 0.8, delay: 0.4 }}/>
-        {/* </div>  */}
           </div>
         </div>
       </section>

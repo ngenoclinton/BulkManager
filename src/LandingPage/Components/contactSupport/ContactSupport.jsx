@@ -1,12 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle, MapPin, Mail, Clock, ChevronDown } from 'lucide-react';
+import Footer from '../Footer/Footer';
 
 const ContactSupport= () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Banner Section */}
-      <div className="relative h-64 bg-cover bg-center" style={{backgroundImage: "url('/placeholder.svg?height=400&width=1200&text=Contact+Support+Banner')"}}>
+      <div className="relative h-64 bg-cover bg-center" style={{backgroundImage: "url('https://media.istockphoto.com/id/1168945108/photo/close-up-image-of-male-hands-using-smartphone-with-icon-telephone-email-mobile-phone-and.jpg?b=1&s=612x612&w=0&k=20&c=paoKylHupt1tAyuqdpARvlW-yJKqf68Vla1qVPjHpYM=')"}}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <motion.h2 
             className="text-4xl font-bold text-white"
@@ -80,7 +81,7 @@ const ContactSupport= () => {
 
           {/* Right Section - Contact Form */}
           <motion.div 
-            className="lg:w-2/5 bg-orange-500 p-12"
+            className="lg:w-2/5 bg-orange-900/80 p-12"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -133,6 +134,7 @@ const ContactSupport= () => {
           </motion.div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
