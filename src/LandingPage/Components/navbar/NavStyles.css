@@ -1,0 +1,19 @@
+/* Initial (static) styles for NavBottom */
+.static-nav-bottom {
+    position: relative;
+    top: auto;
+    z-index: 1;
+    width: 100%;
+  }
+  
+  /* Sticky styles for NavBottom */
+  .sticky-nav-bottom {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    background-color: white; /* Adjust as needed */
+    width: 100%;
+    box-shadow: 0 4px 2px -2px gray; /* Optional: Adds a shadow for better visibility */
+    transition: top 0.3s ease-in-out;
+  }
+  

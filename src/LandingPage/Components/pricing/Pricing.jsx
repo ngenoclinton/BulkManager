@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, X, HelpCircle } from 'lucide-react';
+import { CheckCircle, X, HelpCircle,MessageCircle, } from 'lucide-react';
+import Footer from '../Footer/Footer';
 
 const Header = () => (
   <div className="text-center mb-12">
@@ -58,6 +59,26 @@ const PricingCard = ({ name, price, features, isPopular, ctaText }) => (
       {ctaText}
     </motion.button>
   </motion.div>
+);
+const CustomPricingSection = () => (
+  <div className="bg-gray-100 p-8 rounded-lg shadow-lg mb-12 my-12">
+    <h2 className="text-2xl font-semibold mb-4 text-center">Need a Custom Plan?</h2>
+    <p className="text-center mb-6">We offer tailored solutions for businesses with unique requirements.</p>
+    <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-[#f15c22] text-white px-5 py-2 rounded-xl font-semibold text-lg flex items-center"
+      >
+        <MessageCircle className="w-5 h-5 mr-2" />
+        Chat with Us
+      </motion.button>
+      <div className="text-center md:text-left">
+        <p className="font-semibold text-lg mb-2">Call Us: 1-700-7001-2007</p>
+        <p className="text-gray-600">Our amazing customer support team is available 7 days per week.</p>
+      </div>
+    </div>
+  </div>
 );
 
 const FeatureTable = () => (
@@ -171,7 +192,7 @@ const PricingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <><div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <Header />
         <BillingToggle isAnnual={isAnnual} setIsAnnual={setIsAnnual} />
@@ -181,6 +202,7 @@ const PricingPage = () => {
           ))}
         </div>
         <FeatureTable />
+       < CustomPricingSection />
         <FAQ />
         <Testimonials />
         <div className="text-center">
@@ -192,8 +214,12 @@ const PricingPage = () => {
             Get Started Today
           </motion.button>
         </div>
+        
       </div>
     </div>
+    
+    <Footer />
+    </>
   );
 };
 

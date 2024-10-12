@@ -22,11 +22,22 @@ const countries = [
 export default function RegistrationPage() {
   const [errors, setErrors] = useState({});
   const [country, setCountry] = useState('ke');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would typically send the registration data to your backend
+    // For this example, we'll just simulate a successful registration
+    setIsSubmitted(true);
+  };
 
   const validateForm = (e) => {
     e.preventDefault();
     const newErrors = {};
-    const requiredFields = ['email', 'firstName', 'lastName', 'country'];
+    const requiredFields = ['email', 'firstName', 'lastName', 'country', 'password','confirmPassword'];
     
     requiredFields.forEach(field => {
       if (!e.target[field].value) {
@@ -87,13 +98,17 @@ export default function RegistrationPage() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-2xl font-bold mb-6 text-center">Sign up for free</h2>
-          <form onSubmit={validateForm} className="space-y-4">
+          {!isSubmitted ? (<form  onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Company email</label>
               <input
                 id="email"
                 name="email"
                 type="email"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="you@company.com"
               />
@@ -171,6 +186,48 @@ export default function RegistrationPage() {
                 placeholder="https://www.company.com"
               />
             </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password
+              </label>
+              <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Doe"
+              />
+              {errors.password && (
+                <div className="flex items-center mt-1 text-red-500 text-sm">
+                  <AlertCircle size={16} className="mr-1" />
+                  {errors.password}
+                </div>
+              )}
+            </div>
+            <div>
+              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">confirm-password
+              </label>
+              <input
+                    id="confirm-password"
+                    name="confirm-password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Doe"
+              />
+              {errors.confirmPassword && (
+                <div className="flex items-center mt-1 text-red-500 text-sm">
+                  <AlertCircle size={16} className="mr-1" />
+                  {errors.confirmPassword}
+                </div>
+              )}
+            </div>
             <div className="flex items-center">
               <input
                 id="newsletter"
@@ -206,7 +263,19 @@ export default function RegistrationPage() {
                 No credit card required
               </p>
             </div>
-          </form>
+          </form>): (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <h3 className="text-xl font-medium text-gray-900 mb-4">Registration Successful!</h3>
+              <p className="text-gray-600">
+                We've sent a verification link to your email address. Please check your inbox and click the link to verify your account.
+              </p>
+            </motion.div>
+          )}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}

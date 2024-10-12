@@ -1,89 +1,73 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation, AnimatePresence} from 'framer-motion';
-import {Menu, X} from 'lucide-react';
-import { Link } from 'react-router-dom';  // Import Link from react-router-dom
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const menuItems = [
-    { name: 'Home', path:'/' },
-    { 
-      name: 'Features',
-      path:"/features",
-      // submenu: [
-      //   // {name:'Mass Messaging',path: '/about/contact-support'},
-      //   // {name:'Voice Calls', path: '/about/contact-support'},
-      // ]
-    },
-    { name: 'Who we Are',  
-      path:"/about",  // Path for the main item
-      submenu: [
-        { name: 'How it works', path: '/how-it-works' },
-        { name: 'Contact Us', path: '/contact-support' }
-      ]
-    },
-    { 
-      name: 'Pricing', 
-      path:'/pricing',
-    },
-    { name: 'Blog', 
-      path:"/blog" },
-  ];
-const NavBottom=()=>{
-const [hoveredItem, setHoveredItem] = useState(null);
-const [isMenuOpen, setIsMenuOpen] = useState(false);
-const [lastScrollY, setLastScrollY] = useState(0);
-const navControls = useAnimation();
-const navRef = useRef(null);
-  
-    useEffect(() => {
-      if (hoveredItem && navRef.current) {
-        const navItem = navRef.current.querySelector(`[data-name="${hoveredItem}"]`);
-        if (navItem) {
-          const navItemRect = navItem.getBoundingClientRect();
-          const navRect = navRef.current.getBoundingClientRect();
-          // setTrianglePosition(navItemRect.left - navRect.left + navItemRect.width / 2);
-        }
+  { name: 'Home', path: '/' },
+  { name: 'Features', path: '/features' },
+  { 
+    name: 'Who we Are', 
+    path: '/about',
+    submenu: [
+      { name: 'How it works', path: '/how-it-works' },
+      { name: 'Contact Us', path: '/contact-support' }
+    ]
+  },
+  { name: 'Pricing', path: '/pricing' },
+];
+
+const NavBottom = () => {
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const navControls = useAnimation();
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY) {
+        navControls.start({ y: '-100%', transition: { duration: 0.3 } });
+      } else {
+        navControls.start({ y: 0, transition: { duration: 0.3 } });
       }
-    }, [hoveredItem]);
-    useEffect(() => {
-        const handleScroll = () => {
-          const currentScrollY = window.scrollY;
-          if (currentScrollY > lastScrollY) {
-            navControls.start({ y: '-100%', transition: { duration: 0.3 } });
-          } else {
-            navControls.start({ y: 0, transition: { duration: 0.3 } });
-          }
-          setLastScrollY(currentScrollY);
-        };
-    
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, [lastScrollY, navControls]);
+      setLastScrollY(currentScrollY);
+    };
 
-return (
-<div>
-{/* Main Navigation - Sticky */}
-<motion.nav 
-className="bg-white shadow-md sticky top-0 z-10"
-initial={{ y: 0 }}
-animate={navControls}
->
-<div className="container mx-auto px-4 max-w-6xl ">
-    <div className="flex justify-between items-center py-4">
-    <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex items-center space-x-4"
-    >
-        {/* <img src="" alt="Logo" className="h-10 w-10" /> */}
-        <span className="font-bold text-3xl text-[#f15c22]">SMS & Voice</span>
-    </motion.div>
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY, navControls]);
 
-    <nav className="bg-white" ref={navRef}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">            
-             {/* Desktop menu */}
-          <div className="hidden md:flex md:items-center md:space-x-4 z-30">
+  const slideVariants = {
+    hidden: { x: '100%', opacity: 0 },
+    visible: (custom) => ({
+      x: 0,
+      opacity: 1,
+      transition: { delay: custom * 0.1, type: 'spring', stiffness: 120 }
+    })
+  };
+
+  return (
+    <div>
+      <motion.nav 
+        className="bg-white shadow-md sticky top-0 z-10"
+        initial={{ y: 0 }}
+        animate={navControls}
+      >
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="flex justify-between items-center py-4">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center space-x-4"
+            >
+              <span className="font-bold text-3xl text-[#f15c22]">SMS & Voice</span>
+            </motion.div>
+
+            <nav className="hidden md:block" ref={navRef}>
+              <div className="flex items-center space-x-4">
                 {menuItems.map((item) => (
                   <div
                     key={item.name}
@@ -115,7 +99,7 @@ animate={navControls}
                                 <Link
                                   key={subItem.name}
                                   to={subItem.path}
-                                  className={`block px-4 py-3 text-base text-[#f15c22] hover:text-black hover transition-colors duration-200
+                                  className={`block px-4 py-3 text-base text-[#f15c22] hover:text-black transition-colors duration-200
                                     ${index !== item.submenu.length - 1 ? 'border-b border-gray-200' : ''}
                                   `}
                                 >
@@ -129,49 +113,90 @@ animate={navControls}
                     )}
                   </div>
                 ))}
-          </div>
+              </div>
+            </nav>
+
+            <div className="md:hidden">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X /> : <Menu />}
+              </motion.button>
+            </div>
           </div>
         </div>
-    </nav>
+      </motion.nav>
 
-    <div className="md:hidden">
-        <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-        {isMenuOpen ? <X /> : <Menu />}
-        </motion.button>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1 }
+            }}
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={{
+                hidden: { x: '100%' },
+                visible: { x: '0%' }
+              }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-4">
+                <button 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="absolute top-4 right-4"
+                >
+                  <X />
+                </button>
+                {menuItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    custom={index}
+                    variants={slideVariants}
+                  >
+                    <Link
+                      to={item.path}
+                      className="block py-2 text-gray-600 hover:text-[#f15c22] transition-colors duration-300"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                    {item.submenu && (
+                      <div className="pl-4">
+                        {item.submenu.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            to={subItem.path}
+                            className="block py-2 text-gray-600 hover:text-[#f15c22] transition-colors duration-300"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
-    </div>
-</div>
-</motion.nav>
-
-{/* Mobile Menu */}
-{isMenuOpen && (
-<motion.div
-    initial={{ opacity: 0, height: 0 }}
-    animate={{ opacity: 1, height: 'auto' }}
-    exit={{ opacity: 0, height: 0 }}
-    className="md:hidden bg-white shadow-md"
->
-    <div className="container mx-auto px-4 py-2">
-    {['Home', 'About', 'Features', 'Pricing', 'Contact Us'].map((item) => (
-        <motion.a
-        key={item}
-        href={`#${item.toLowerCase().replace(' ', '-')}`}
-        className="block py-2 text-gray-600 hover:text-blue-600 transition-colors duration-300"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        >
-        {item}
-        </motion.a>
-    ))}
-    </div>
-</motion.div>
-)}
-</div>
-)
-}
+  );
+};
 
 export default NavBottom;
