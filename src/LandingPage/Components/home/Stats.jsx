@@ -21,7 +21,7 @@ const statsData = [
 
 const StatItem = ({ id, number, content, isVisible }) => (
   <motion.div 
-    className="stats__item flex flex-col items-center text-center p-4 bg-white rounded-lg shadow-md"
+    className="stats__item flex flex-col items-center text-center p-4 bg-white rounded-lg shadow-xl shadow-inner"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
     transition={{ duration: 0.5 }}
@@ -36,7 +36,7 @@ const StatItem = ({ id, number, content, isVisible }) => (
       {number}
     </motion.h2>
     <div className="w-full h-px bg-gray-200 mb-4"></div>
-    <p className="paragraph stats__metric-content text-lg text-gray-600">
+    <p className="paragraph stats__metric-content text-sm sm:text-base md:text-lg text-gray-600">
       {content}
     </p>
   </motion.div>
@@ -73,11 +73,11 @@ export default function Stats   () {
   }, []);
 
   return (
-    <section ref={sectionRef} className="wrapper__inner py-20 max-w-6xl mx-auto">
+    <section ref={sectionRef} className="wrapper__inner py-14 md:py-20 max-w-6xl mx-auto">
       <div className="container mx-auto px-4">
         <div className="stats block-stats__stats">
           <motion.h2 
-            className="heading stats__heading text-5xl leading-16 font-bold text-left mb-12 text-gray-800 w-1/2 "
+            className="heading stats__heading text-xl sm:text-2xl md:text-5xl leading-16 font-bold text-center md:text-left mb-12 text-gray-800 md:w-1/2 "
             id="turn-shopping-season-into-a-profit-season"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}

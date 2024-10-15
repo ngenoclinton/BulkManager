@@ -11,33 +11,18 @@ const menuItems = [
     path: '/about',
     submenu: [
       { name: 'How it works', path: '/how-it-works' },
-      { name: 'Contact Us', path: '/contact-support' }
     ]
   },
   { name: 'Pricing', path: '/pricing' },
+  { name: 'Contact Us', path: '/contact-support' }
 ];
 
 const NavBottom = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const navControls = useAnimation();
   const navRef = useRef(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
-        navControls.start({ y: '-100%', transition: { duration: 0.3 } });
-      } else {
-        navControls.start({ y: 0, transition: { duration: 0.3 } });
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, navControls]);
 
   const slideVariants = {
     hidden: { x: '100%', opacity: 0 },

@@ -41,7 +41,9 @@ export default function LoginPage() {
       {/* Left side */}
       <div className="lg:w-1/2 bg-white p-8 lg:p-12 flex flex-col justify-between">
         <div>
-          <img src="/placeholder.svg?height=50&width=150" alt="Comms logo" className="mb-8" />
+        <Link to="/" className="flex-shrink-0 flex items-center mb-8">
+              <span className="ml-2 text-xl font-bold text-[#f15c22]">SMS & VOICE</span>
+            </Link>
           <h1 className="text-2xl lg:text-3xl font-bold mb-6">Your clients, your communication, our platform.</h1>
           <h2 className="text-xl font-semibold mb-8">Join Comms today.</h2>
           

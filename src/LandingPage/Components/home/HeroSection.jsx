@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SocialMedia from '../../assets/images/resources/sm-Group.5.png';
 import { ChevronRight, CircleCheckBig} from 'lucide-react';
+import {Link} from 'react-router-dom'; 
 
 const HeroSection =()=>{
     
@@ -23,11 +24,11 @@ const HeroSection =()=>{
         <div className='z-20'>
      {/* Hero Section */}
      {/* bg-gradient-to-r from-[#f15c22] to-[#f47a4d] */}
-     <section className=" text-black py-16 px-4 z-0 max-w-6xl mx-auto">
+     <section className=" text-black py-12 md:py-16 px-4 z-0 max-w-6xl mx-auto">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-evenly">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
+              className=" text-xl sm:text-3xl md:text-5xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -35,7 +36,7 @@ const HeroSection =()=>{
               Send SMS and Voice Messages Instantly
             </motion.h1>
             <motion.p
-              className="text-lg mt-2 mb-8 text-black "
+              className="text-base md:text-lg mt-2 mb-8 text-black "
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -63,7 +64,7 @@ const HeroSection =()=>{
                       animate={{ scale: 1, opacity: 1 }} // Animate icon to be visible
                       transition={{ delay: index * 0.3, duration: 0.5, ease: 'easeInOut' }}
                     >
-                      <CircleCheckBig className="text-green-600 w-6 h-6" />
+                      <CircleCheckBig className="text-green-600 w-5 h-5 md:w-6 md:h-6" />
                     </motion.div>
 
                     {/* Text that slides in */}
@@ -80,14 +81,14 @@ const HeroSection =()=>{
               </ul>
               </div>
             </motion.p>
-            <motion.button 
-              className="bg-orange-500 hover:bg-orange-600 text-white px-7 py-2 rounded-xl font-semibold text-base transition-all duration-400 hover:scale-1.s02 shadow-lg"
+           <Link to="register"> <motion.button 
+              className=" text-sm md:text-base bg-orange-500 hover:bg-orange-600 text-white px-5 py-1 md:px-7 md:py-2 rounded-xl font-semibold text-base transition-all duration-400 hover:scale-1.s02 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Try for free <ChevronRight className="inline-block ml-2 " />
+              Try for free <ChevronRight className="inline-block ml-1 md:ml-2 " />
             </motion.button>
-           
+           </Link>
           </div>
           <div className="md:w-1/2 z-0 flex flex-1 transform justify-center">
             <motion.img src="https://img.freepik.com/free-vector/flat-design-people-talking-online_23-2149077907.jpg?size=626&ext=jpg&ga=GA1.1.1315670878.1727435405&semt=ais_hybrid" alt='Hero Image'

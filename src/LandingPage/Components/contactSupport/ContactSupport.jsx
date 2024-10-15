@@ -81,12 +81,12 @@ const ContactSupport= () => {
 
           {/* Right Section - Contact Form */}
           <motion.div 
-            className="lg:w-2/5 bg-orange-900/80 p-12"
+            className="lg:w-2/5 bg-orange-500 p-12"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-gray-800 mb-8 text-white">Contact Us Below</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-8 text-white">Contact Us</h2>
             <p className="text-indigo-800 mb-8"> Your email address will not be published. Required fields are marked <span className="text-red-600">*</span> </p>
 
 

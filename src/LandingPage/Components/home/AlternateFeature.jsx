@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import {Link } from 'react-router-dom'; 
 
 import BMSL from'../../assets/images/svgs/businessman-sending-large.jpg'
 import Notifications from'../../assets/images/svgs/message-notification-.jpg'
@@ -47,18 +48,18 @@ const FeatureSection = ({ title, description, cta, image, isReversed, index }) =
       whileInView="visible"
       viewport={{ once: true }}
     >
-      <div className="w-full md:w-2/5 mb-8 md:mb-0">
-        <h2 className="text-3xl font-bold mb-4">{title}</h2>
-        <p className="text-lg text-gray-600 mb-6">{description}</p>
-        <motion.button 
-          className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300"
+      <div className="w-full md:w-2/5 mb-5 md:mb-7 md:mb-0">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">{title}</h2>
+        <p className="text-base md:text-lg text-gray-600 mb-6">{description}</p>
+       <Link to="register"> <motion.button 
+          className="bg-orange-500 text-white px-4 md:px-6 py-1 md:py-2 rounded-full hover:bg-orange-600 transition duration-300"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.95 }}
         >
           {cta}
-        </motion.button>
+        </motion.button></Link>
       </div>
-      <div className="w-1/2 md:w-2/5 h-1/3">
+      <div className="w-3/5 md:w-2/5 h-1/3">
         <motion.img 
           src={image} 
           alt={title} 
@@ -73,7 +74,7 @@ const FeatureSection = ({ title, description, cta, image, isReversed, index }) =
 
 export default function AlternatingFeatures() {
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-14 md:py-20">
       <div className="container mx-auto px-4">
         {features.map((feature, index) => (
           <FeatureSection 

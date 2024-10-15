@@ -5,11 +5,11 @@ import Footer from '../Footer/Footer';
 
 
 const AboutSection = ({ title, description, imageUrl, imageLeft }) => (
-    <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-      <div className={`flex flex-col  ${imageLeft ? 'md:flex-row-reverse' : 'md:flex-row'} gap-x-10  justify-between`}>
+    <div className="max-w-7xl mx-auto py-10 md:py-16 px-4 sm:px-6 lg:px-8">
+      <div className={`flex flex-col  ${imageLeft ? 'md:flex-row-reverse' : 'md:flex-row'} gap-x-10 space-y-4 md:space-y-0 justify-between`}>
         <div className="md:w-1/2  md:mb-0">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">{title}</h2>
-         <p className="text-lg text-gray-600">{description}</p>
+        <h2 className="text-2xl  md:text-3xl font-bold mb-4 text-gray-800">{title}</h2>
+         <p className="text-base md:text-lg text-gray-600">{description}</p>
         </div>
         <div className="md:w-1/2">
           <img src={imageUrl} alt={title} className="w-full h-auto rounded-lg shadow-lg" />
@@ -20,11 +20,13 @@ const AboutSection = ({ title, description, imageUrl, imageLeft }) => (
 const ServiceCard = ({ icon: Icon, title, description }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="bg-white p-6 rounded-lg shadow-md"
+    className="bg-white p-3 md:p-4 lg:p-6 rounded-lg shadow-md"
   >
-    <Icon className="w-12 h-12 text-[#f15c22] mb-4" />
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{description}</p>
+    <div className='flex flex-col md:flex-row items-center md:justify-between px-2'>
+      <Icon className="w-9 md:w-10 lg:w-12  h-9 md:h-10 lg:h-12 text-[#f15c22] mb-4" />
+      <h3 className="text-xl font-semibold mb-2 text-center">{title}</h3>
+    </div>
+    <p className="text-gray-600 text-center">{description}</p>
   </motion.div>
 );
 
@@ -33,8 +35,10 @@ const WhyChooseUsCard = ({ icon: Icon, title, description }) => (
     whileHover={{ scale: 1.05 }}
     className="bg-white p-6 rounded-lg shadow-md"
   >
-    <Icon className="w-12 h-12 text-[#f15c22] mb-4" />
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
+    <div className='flex flex-col md:flex-row items-center md:justify-between px-2'>
+      <Icon className="w-9 md:w-10 lg:w-12  h-9 md:h-10 lg:h-12 text-[#f15c22] mb-4" />
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+    </div>
     <p className="text-gray-600">{description}</p>
   </motion.div>
 );
@@ -50,7 +54,7 @@ const AnimatedHeading = ({ children }) => (
   );
   const AnimatedHeadingH2 = ({ children }) => (
     <motion.h2
-      className="text-3xl font-bold mb-8 text-center text-gray-800"
+      className=" text-2xl md:text-3xl font-bold mb-8 text-center text-gray-800"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -61,7 +65,7 @@ const AnimatedHeading = ({ children }) => (
   
   const VisionMissionCard = ({ title, content, icon: Icon }) => (
     <motion.div
-      className="flex-1 bg-[#f15c22] py-16 p-12 rounded-lg shadow-lg text-white"
+      className="flex-1 bg-[#f15c22] py-16 p-6 md:p-9 lg:p-12 rounded-lg shadow-lg text-white"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
@@ -70,7 +74,7 @@ const AnimatedHeading = ({ children }) => (
         <Icon className="w-8 h-8 mr-2" />
         <h3 className="text-2xl font-semibold">{title}</h3>
       </div>
-      <p className="text-lg p-3">{content}</p>
+      <p className="text-base md:text-lg p-3">{content}</p>
     </motion.div>
   );
 
@@ -97,7 +101,7 @@ export default function AboutSections({title}) {
         {/* ABOUT */}
       <section className="max-w-7xl mx-auto ">
         <AboutSection
-          title="// We Connect. Communicate. Collaborate"
+          title="We Connect. Communicate. Collaborate"
           description="At our core, we believe in the power of connection. Our innovative bulk SMS and voice call solutions bridge the gap between businesses and their audiences, fostering meaningful communication that drives collaboration. By leveraging cutting-edge technology, we empower organizations to reach out, engage, and build lasting relationships with their customers, partners, and teams."
           imageUrl="https://cdn.pixabay.com/photo/2021/09/10/18/39/secretary-6613923_1280.png"
           imageLeft={false}
@@ -117,7 +121,7 @@ export default function AboutSections({title}) {
             </div>
         </section>
         <AboutSection
-          title="// We Engage. Empower. Enhance"
+          title="We Engage. Empower. Enhance"
           description="We're not just about sending messages; we're about creating impact. Our platform is designed to engage your audience with personalized, timely communications that resonate. By empowering businesses with robust tools and insights, we enhance your ability to make data-driven decisions, optimize campaigns, and ultimately, drive growth. Experience the difference of truly empowered communication."
           imageUrl="https://img.freepik.com/premium-photo/sending-email-bulk-mail-hand-hold-white-smartphone-with-digital-hologram-email-sms-sign-city-dark-blurred-background-business-email-concept_486333-4286.jpg?w=826"
           imageLeft={true}
@@ -168,7 +172,7 @@ export default function AboutSections({title}) {
     </section>
         {/* Customer feedback */}
       <section className="max-w-7xl mx-auto py-16 px-4 bg-white z-10">
-        <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">Customer Feedback</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-12 text-center text-gray-800">Customer Feedback</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <CustomerFeedbackCard
             rating={5}

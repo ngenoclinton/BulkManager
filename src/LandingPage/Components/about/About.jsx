@@ -100,7 +100,7 @@ export default function AboutPage() {
                 <p className="text-xl sm:text-2xl md:text-3xl mb-8">
                   <TextAnimation text={slides[currentSlide].description} />
                 </p>
-                <motion.button
+                {/* <motion.button
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1, duration: 0.5 }}
@@ -109,7 +109,7 @@ export default function AboutPage() {
                   className="bg-[#f15c22] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300"
                 >
                   {slides[currentSlide].cta}
-                </motion.button>
+                </motion.button> */}
               </motion.div>
             </AnimatePresence>
           </div>

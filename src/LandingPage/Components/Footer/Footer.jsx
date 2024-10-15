@@ -65,7 +65,7 @@ const NewsletterForm = () => (
 
 const Footer = () => {
   return (
-    <footer className="relative bg-[#2C3E50] text-white py-6">
+    <footer className="relative bg-[#2C3E50] text-white py-6 px-3">
       <div className="absolute inset-0 bg-cover bg-center z-0" style={{backgroundImage: "url('https://cdn.pixabay.com/photo/2018/12/10/10/21/earth-3866609_640.jpg')"}}></div>
       <div className="absolute inset-0 bg-black opacity-85 z-10"></div>
       <WaveDesign />
@@ -121,7 +121,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="mt-4 text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} Powered by iRob Technologies SMS & Voice calls. All rights reserved.
+            © {new Date().getFullYear()} Powered by <a href='https://www.irobtechnologies.com/' target='blank' className='border-b border-blue-300 text-blue-600'>iRob Technologie</a> SMS & Voice calls. All rights reserved.
           </div>
         </div>
       </div>
