@@ -121,7 +121,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="mt-4 text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} Powered by <a href='https://www.irobtechnologies.com/' target='blank' className='text-[#f15c22]'>iRob Technologie</a> SMS & Voice calls. All rights reserved.
+            © {new Date().getFullYear()} Powered by <a href='https://www.irobtechnologies.com/' target='blank' className='text-[#f15c22]'>iRob Technologies</a> SMS & Voice calls. All rights reserved.
           </div>
         </div>
       </div>
