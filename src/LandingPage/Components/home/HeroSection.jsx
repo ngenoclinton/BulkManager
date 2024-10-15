@@ -28,7 +28,7 @@ const HeroSection =()=>{
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-evenly">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <motion.h1 
-              className=" text-xl sm:text-3xl md:text-5xl font-bold mb-6 leading-tight"
+              className=" text-2xl md:text-5xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
