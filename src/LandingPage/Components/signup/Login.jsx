@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertCircle, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import {login} from '../../../redux/authSlice';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -9,6 +12,7 @@ export default function LoginPage() {
     password: '',
     rememberMe: false,
   });
+  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
