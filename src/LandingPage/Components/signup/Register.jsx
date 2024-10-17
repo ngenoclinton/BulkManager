@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertCircle, Check, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 const countries = [
   { code: 'ke', name: 'Kenya' },
   { code: 'us', name: 'United States' },
@@ -50,12 +50,17 @@ export default function RegistrationPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+     try {
       // Here you would typically send the registration data to your backend
-      console.log('Form submitted:', formData);
-      setIsSubmitted(true);
+      const response = await axios.post('https://your-backend-api-url/register', formData);
+      console.log('Registration successful:', response.data);
+      setIsSubmitted(true);}
+      catch (error){
+        console.error('Error during registration:', error.response?.data || error.message);
+      }
     }
   };
 
@@ -168,32 +173,32 @@ export default function RegistrationPage() {
                   )}
                 </div>
               </div>
-              {/* <div>
-                <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                <div className="relative">
-                  <select
-                    id="country"
-                    name="country"
-                    required
-                    value={formData.country}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 appearance-none"
-                  >
-                    {countries.map((c) => (
-                      <option key={c.code} value={c.code}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                </div>
-                {errors.country && (
-                  <div className="flex items-center mt-1 text-red-500 text-sm">
-                    <AlertCircle size={16} className="mr-1" />
-                    {errors.country}
+                <div>
+                  <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                  <div className="relative">
+                    <select
+                      id="country"
+                      name="country"
+                      required
+                      value={formData.country}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 appearance-none"
+                    >
+                      {countries.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                   </div>
-                )}
-              </div> */}
+                  {errors.country && (
+                    <div className="flex items-center mt-1 text-red-500 text-sm">
+                      <AlertCircle size={16} className="mr-1" />
+                      {errors.country}
+                    </div>
+                  )}
+                </div>
               <div>
                 <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-1">Company website (optional)</label>
                 <input
