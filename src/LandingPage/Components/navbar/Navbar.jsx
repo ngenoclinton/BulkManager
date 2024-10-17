@@ -50,6 +50,8 @@ export default function Navbar() {
               </NavDropdown>
               <NavLink href="/pricing">Pricing</NavLink>
               <NavLink href="/contact-support">Contact Us</NavLink>
+              <NavLink href="/dash">DashBoard</NavLink>
+
             </div>
 
             {/* Right: Login/Register */}
