@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertCircle, Check, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 const countries = [
   { code: 'ke', name: 'Kenya' },
   { code: 'us', name: 'United States' },
@@ -50,12 +50,17 @@ export default function RegistrationPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+     try {
       // Here you would typically send the registration data to your backend
-      console.log('Form submitted:', formData);
-      setIsSubmitted(true);
+      const response = await axios.post('https://your-backend-api-url/register', formData);
+      console.log('Registration successful:', response.data);
+      setIsSubmitted(true);}
+      catch (error){
+        console.error('Error during registration:', error.response?.data || error.message);
+      }
     }
   };
 
@@ -168,7 +173,7 @@ export default function RegistrationPage() {
                   )}
                 </div>
               </div>
-                {/* <div>
+                <div>
                   <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
                   <div className="relative">
                     <select
@@ -193,7 +198,7 @@ export default function RegistrationPage() {
                       {errors.country}
                     </div>
                   )}
-                </div> */}
+                </div>
               <div>
                 <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-1">Company website (optional)</label>
                 <input

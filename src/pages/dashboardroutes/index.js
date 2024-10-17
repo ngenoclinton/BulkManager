@@ -4,14 +4,16 @@ import { Routes, Route } from 'react-router-dom';
 import Sidebar from '../../Dashboard/Sidebar';
 import DashboardOverview from '../../Dashboard/DashboardOverview';
 import Reports from '../../Dashboard/Reports';
+import Dashboard from '../../Dashboard/dashboard';
 
 const DashboardRoutes = () => {
   return (
     <div>
-      <Sidebar />
+      <Dashboard/>
+      {/* <Sidebar /> */}
       <Routes>
-        <Route path="/" element={<DashboardOverview />} />
-        <Route path="/reports" element={<Reports />} />
+        {/* <Route path="/" element={<DashboardOverview />} />
+        <Route path="/reports" element={<Reports />} /> */}
         {/* Add more dashboard routes as necessary */}
       </Routes>
     </div>

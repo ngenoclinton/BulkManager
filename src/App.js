@@ -22,7 +22,16 @@ export default App;
   
   
   
-  
+// return (
+//   <Router>
+//     <Switch>
+//       <Route path="/register" component={RegistrationPage} />
+//       <Route path="/login" component={LoginPage} />
+//       <ProtectedRoute path="/dashboard" component={Dashboard} />
+//       {/* Other routes */}
+//     </Switch>
+//   </Router>
+// );
   
   
   
