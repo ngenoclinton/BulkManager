@@ -2,14 +2,27 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertCircle, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {login} from '../../../redux/authSlice';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     rememberMe: false,
-  });
+  });  
   const [errors, setErrors] = useState({});
+
+
+  //  // //////////////////////////////////
+  // // Form validation and submission
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  // // //////////////////////////////////
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -27,12 +40,19 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+   try {
     if (validateForm()) {
       // Form is valid, you can submit it here
+      const response = await axios.post('https://your-backend-api-url/login', { email, password });
+      // Assuming token is returned in response
+      localStorage.setItem('token', response.data.token);
       console.log('Form submitted:', formData);
+      navigate('/dashboard');  // Redirect to dashboard after login
+    }}
+    catch (e) {
+      setError(e.response?.data || 'Login failed');
     }
   };
 
