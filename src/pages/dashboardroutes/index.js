@@ -9,7 +9,7 @@ import Dashboard from '../../Dashboard/dashboard';
 const DashboardRoutes = () => {
   return (
     <div>
-      <Dashboard/>
+      <Dashboard />
       {/* <Sidebar /> */}
       <Routes>
         {/* <Route path="/" element={<DashboardOverview />} />
