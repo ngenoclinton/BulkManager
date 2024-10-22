@@ -1,11 +1,11 @@
 import {React } from 'react';
 import {Link} from 'react-router-dom'
+import Dashboard from './dashboard';
 
 const DashboardOverview = ()=>{
     return(
         <div>
-            <h1>Dashboard Overview</h1>
-            <Link to="/dashboard/edit">Edit</Link>
+            <Dashboard/>
         </div>
     )
 }

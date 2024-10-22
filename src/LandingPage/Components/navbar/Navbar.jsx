@@ -45,13 +45,11 @@ export default function Navbar() {
             <div className="hidden lg:flex space-x-8 z-50 items-center judtify-evenly">
               <NavLink href="/">Home</NavLink>
               <NavLink href='/features'>Features</NavLink>
-              <NavDropdown href="/about" title='Who we are'>
-                <Link to="/how-it-works">How it works</Link>
-              </NavDropdown>
+              <NavLink href="/about">Who we are</NavLink>
+              {/* <NavLink to="/how-it-works">How it works</NavLink> */}
               <NavLink href="/pricing">Pricing</NavLink>
               <NavLink href="/contact-support">Contact Us</NavLink>
               <NavLink href="/dash">DashBoard</NavLink>
-
             </div>
 
             {/* Right: Login/Register */}

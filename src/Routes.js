@@ -14,16 +14,14 @@ const RoutesHandler = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/*" element={<LandingPageRoutes />} />
-      <Route path='/dash' element={<DashboardRoutes/>} />
+      <Route path="/dash/*"element={<DashboardRoutes/>} />
+      <Route path='/admin/*' />
       {/* Protected Routes */}
       <Route
         path="/dashboard/*"
-        element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <DashboardRoutes />
-          </ProtectedRoute>
-        }
+        element={<ProtectedRoute isAuthenticated={isAuthenticated}> <DashboardRoutes /> </ProtectedRoute>}
       />
+
       {/* <ProtectedRoute path="/dashboard" component={Dashboard} />   -- Commented this out will work on it later*/}
       {/* Other routes */}
     </Routes>

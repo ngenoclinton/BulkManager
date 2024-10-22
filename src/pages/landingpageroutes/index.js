@@ -21,7 +21,6 @@ const LandingPageRoutes = () => {
     <>
     {/* Conditionally render Navbar if not on login or registration page */}
     {!hideNavbarPaths.includes(location.pathname) && <Navbar />}
-
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
