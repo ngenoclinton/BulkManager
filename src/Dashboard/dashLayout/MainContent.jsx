@@ -7,6 +7,13 @@ import ContactsImports from '../dashComponents/Contacts/ContactsImports'
 import RegisteredNumbers from '../dashComponents/Contacts/RegisteredNumbers'
 import Groups from '../dashComponents/Contacts/Groups'
 import NewContacts from '../dashComponents/Contacts/NewContacts'
+import VoiceCallCampaign from '../dashComponents/VoiceCalls/VoiceCallsCampaign'
+import Contacts from '../dashComponents/Contacts/Contacts'
+import DraftVoiceCalls from '../dashComponents/VoiceCalls/DraftVoiceCalls'
+import SentVoiceCalls from '../dashComponents/VoiceCalls/SentCalls'
+import ScheduledVoiceCalls from '../dashComponents/VoiceCalls/ScheduledVoiceCalls'
+import DeliveryReports from '../dashComponents/VoiceCalls/Reports'
+import VoiceCallTemplates from '../dashComponents/VoiceCalls/VoiceCallTemplates'
 
 export const MainContent = ({handleNavigation, setIsUserMenuOpen, isUserMenuOpen})=>{
   const navigate = useNavigate()
@@ -16,7 +23,7 @@ export const MainContent = ({handleNavigation, setIsUserMenuOpen, isUserMenuOpen
         <div className="flex-1 flex flex-col overflow-x-hidden h-screen">
             {/* Header */}
             <header className="bg-white shadow-sm  w-full z-0 sticky">
-            <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between">
                 <nav className="flex space-x-4">
                     {/* <NavLink onClick={() => handleNavigation('/dash')} active={location.pathname === '/dash'}>Dashboard</NavLink>
@@ -57,12 +64,20 @@ export const MainContent = ({handleNavigation, setIsUserMenuOpen, isUserMenuOpen
             <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <Routes>
                 {/* <Route path="/home" element={<DashboardOverview />} /> */}
-                <Route path="/" element={<DashboardHome/>} />
+                <Route path="/" element={<Home/>} />
                 <Route path="/send-sms" element={<SendSMS />} />
-                <Route path="/voice-campaign" element={<VoiceCampaign />} />
-                <Route path="/ussd-campaign" element={<UssdCampaign/>} />
+                {/* voice campaign routes  */}
+                <Route path="/voice-campaign" element={<VoiceCallCampaign />} />
+                <Route path="/voice-campaign/drafts" element={<DraftVoiceCalls />} />
+                <Route path="/voice-campaign/sent" element={<SentVoiceCalls />} />
+                <Route path="/voice-campaign/scheduled" element={<ScheduledVoiceCalls />} />
+                <Route path="/voice-campaign/voice-reports" element={<DeliveryReports />} />
+                <Route path="/voice-campaign/voice-templates" element={<VoiceCallTemplates />} />
+
                 {/*  */}
-                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/ussd-campaign" element={<UssdCampaign/>} />
+                {/*  Contacts routes*/}
+                <Route path="/contacts" element={<Contacts />} /> 
                 <Route path="/contacts/imports" element={<ContactsImports/>} /> 
                 <Route path="/contacts/registered-numbers" element={<RegisteredNumbers />} />
                 <Route path="/contacts/groups" element={<Groups />} />
@@ -81,26 +96,7 @@ export const MainContent = ({handleNavigation, setIsUserMenuOpen, isUserMenuOpen
     )
 }
 
-function NavLink({ onClick, children, active }) {
-    return (
-      <button
-        onClick={onClick}
-        className={`px-3 py-2 rounded-md text-sm font-medium ${
-          active
-            ? 'text-[#f15c22] bg-gray-100'
-            : 'text-gray-600 hover:text-[#f15c22] hover:bg-gray-50'
-        }`}
-      >
-        {children}
-      </button>
-    )
-  }
-
-
- 
-
-
-  function DashboardHome() {
+  function Home() {
     return (
       <div>
         <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
@@ -203,30 +199,6 @@ function SendSMS() {
     )
   }
   
-  function VoiceCampaign() {
-    return (
-      <div>
-        <h1 className="text-2xl font-semibold text-gray-900 mb-6">Voice Campaign</h1>
-        <div className="bg-white shadow-sm rounded-lg p-6">
-          <form>
-            <div className="mb-4">
-              <label htmlFor="campaign-name" className="block text-sm font-medium text-gray-700 mb-2">Campaign Name</label>
-              <input type="text" id="campaign-name" name="campaign-name" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#f15c22] focus:border-[#f15c22]" placeholder="Enter campaign name" />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="recipients" className="block text-sm font-medium text-gray-700 mb-2">Recipients</label>
-              <input type="text" id="recipients" name="recipients" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#f15c22] focus:border-[#f15c22]" placeholder="Enter phone numbers or select a group" />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="voice-message" className="block text-sm font-medium text-gray-700 mb-2">Voice Message</label>
-              <textarea id="voice-message" name="voice-message" rows={4} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#f15c22] focus:border-[#f15c22]" placeholder="Enter your voice message script here"></textarea>
-            </div>
-            <button type="submit" className="bg-[#f15c22] text-white px-4 py-2 rounded-md hover:bg-[#d94d1a] transition-colors">Create Voice Campaign</button>
-          </form>
-        </div>
-      </div>
-    )
-  }
   
   function USSDCampaign() {
     return (
@@ -249,40 +221,7 @@ function SendSMS() {
     )
   }
   
-  function Contacts() {
-    return (
-      <div>
-        <h1 className="text-2xl font-semibold text-gray-900 mb-6">Contacts</h1>
-        <div className="bg-white shadow-sm rounded-lg p-6">
-          <div className="mb-4 flex justify-between items-center">
-            <input type="text" placeholder="Search contacts" className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#f15c22] focus:border-[#f15c22]" />
-            <button className="bg-[#f15c22] text-white px-4 py-2 rounded-md hover:bg-[#d94d1a] transition-colors">Add Contact</button>
-          </div>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">John Doe</td>
-                <td className="px-6 py-4 whitespace-nowrap">+1234567890</td>
-                <td className="px-6 py-4 whitespace-nowrap">Customers</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <a href="#" className="text-[#f15c22] hover:text-[#d94d1a]">Edit</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    )
-  }
-  
+ 
   function Templates() {
     return (
       <div>

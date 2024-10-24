@@ -25,11 +25,11 @@ const navItems = [
     icon: Phone, 
     path: '/dash/voice-campaign',
     subItems: [
-      { name: 'Sent', icon: Send, path: '/voice/sent' },
-      { name: 'Drafts', icon: FileText, path: '/voice/drafts' },
-      { name: 'Scheduled', icon: Clock, path: '/voice/scheduled' },
-      { name: 'Delivery Reports', icon: BarChart2, path: '/voice/reports' },
-      { name: 'Templates', icon: FileCode, path: '/voice/templates' },
+      { name: 'Sent', icon: Send, path: '/dash/voice-campaign/sent' },
+      { name: 'Drafts', icon: FileText, path: '/dash/voice-campaign/drafts' },
+      { name: 'Scheduled', icon: Clock, path: '/dash/voice-campaign/scheduled' },
+      { name: 'Delivery Reports', icon: BarChart2, path: '/dash/voice-campaign/voice-reports' },
+      { name: 'Templates', icon: FileCode, path: '/dash/voice-campaign/voice-templates' },
     ]
   },
   { 
@@ -136,7 +136,7 @@ const SidebarLink = ({
   const isSubItemActive = (subItem) => location.pathname === subItem.path;
 
   return (
-    <div className='my-2 md:my4 lg:my-6'>
+    <div className='my-2 md:my4'>
       <button
         onClick={handleClick}
         className={`flex items-center w-full px-4 py-2 text-left transition-colors duration-200 ${

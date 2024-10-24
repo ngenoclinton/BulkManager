@@ -90,9 +90,8 @@ export default function Navbar() {
             <div className="space-y-4">
               <MobileNavLink href="/" setIsOpen={setIsOpen} isOpen={isOpen}>Home</MobileNavLink>
               <MobileNavLink href="/features" setIsOpen={setIsOpen} isOpen={isOpen}>Features</MobileNavLink>
-              <MobileNavDropdown href="/about" title='Who we are' setIsOpen={setIsOpen} isOpen={isOpen}>
-                <Link to="/how-it-works" onClick={() => setIsOpen(false)} >How it works</Link>
-              </MobileNavDropdown>              
+              <MobileNavLink href="/about" title='Who we are' setIsOpen={setIsOpen} isOpen={isOpen}>Who we are</MobileNavLink>
+              <MobileNavLink to="/how-it-works" onClick={() => setIsOpen(false)} >How it works</MobileNavLink>            
               <MobileNavLink href="/pricing" setIsOpen={setIsOpen} isOpen={isOpen}>Pricing</MobileNavLink>
               <MobileNavLink href="/contact-support" setIsOpen={setIsOpen} isOpen={isOpen}>Contact Us</MobileNavLink>
               <Link

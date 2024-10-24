@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { Upload, Mic, Play, Pause,Save, Trash2, Download, Calendar, Clock, Send } from 'lucide-react'
-
+import React, { useState, useRef, useEffect } from 'react'
+import { Upload, Mic, Play, Pause, Save, Trash2, Download, Calendar, Clock, Send, Edit2, Users } from 'lucide-react'
 import { RiStopFill } from 'react-icons/ri'
 import { DatePicker, TimePicker, Input, Button, message } from 'antd'
 import dayjs from 'dayjs'
@@ -10,22 +9,36 @@ export default function VoiceCallCampaign() {
   const [phoneNumbers, setPhoneNumbers] = useState('')
   const [audioFile, setAudioFile] = useState(null)
   const [isRecording, setIsRecording] = useState(false)
-  const [scheduledDate, setScheduledDate] = useState('')
-  const [scheduledTime, setScheduledTime] = useState('')
+  const [isPaused, setIsPaused] = useState(false)
+  const [scheduledDate, setScheduledDate] = useState(null)
+  const [scheduledTime, setScheduledTime] = useState(null)
   const [isSaving, setIsSaving] = useState(false)
+  const [audioName, setAudioName] = useState('Recorded Audio')
 
   const audioRef = useRef(null)
   const mediaRecorderRef = useRef(null)
+  const chunksRef = useRef([])
+
+  useEffect(() => {
+    return () => {
+      if (audioFile) {
+        URL.revokeObjectURL(audioFile.url)
+      }
+    }
+  }, [audioFile])
 
   const handlePhoneNumberChange = (e) => {
     setPhoneNumbers(e.target.value)
   }
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files?.[0]
-    if (file) {
+  const handleFileUpload = (info) => {
+    if (info.file.status === 'done') {
+      const file = info.file.originFileObj
       const url = URL.createObjectURL(file)
       setAudioFile({ name: file.name, url })
+      message.success(`${file.name} file uploaded successfully`)
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`)
     }
   }
 
@@ -33,22 +46,38 @@ export default function VoiceCallCampaign() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       mediaRecorderRef.current = new MediaRecorder(stream)
-      const chunks= [];
+      chunksRef.current = []
 
       mediaRecorderRef.current.ondataavailable = (e) => {
-        if (e.data.size > 0) chunks.push(e.data)
+        if (e.data.size > 0) chunksRef.current.push(e.data)
       }
 
       mediaRecorderRef.current.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/wav' })
+        const blob = new Blob(chunksRef.current, { type: 'audio/wav' })
         const url = URL.createObjectURL(blob)
-        setAudioFile({ name: 'Recorded Audio', url })
+        setAudioFile({ name: audioName, url })
       }
 
       mediaRecorderRef.current.start()
       setIsRecording(true)
+      setIsPaused(false)
     } catch (error) {
       console.error('Error accessing microphone:', error)
+      message.error('Failed to access microphone')
+    }
+  }
+
+  const pauseRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.pause()
+      setIsPaused(true)
+    }
+  }
+
+  const resumeRecording = () => {
+    if (mediaRecorderRef.current && isRecording && isPaused) {
+      mediaRecorderRef.current.resume()
+      setIsPaused(false)
     }
   }
 
@@ -56,6 +85,7 @@ export default function VoiceCallCampaign() {
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop()
       setIsRecording(false)
+      setIsPaused(false)
     }
   }
 
@@ -72,7 +102,11 @@ export default function VoiceCallCampaign() {
   }
 
   const deleteAudio = () => {
+    if (audioFile) {
+      URL.revokeObjectURL(audioFile.url)
+    }
     setAudioFile(null)
+    setAudioName('Recorded Audio')
   }
 
   const downloadAudio = () => {
@@ -91,18 +125,23 @@ export default function VoiceCallCampaign() {
     // Simulate saving process
     setTimeout(() => {
       setIsSaving(false)
-      alert('Audio saved as template')
+      message.success('Audio saved as template')
     }, 1000)
   }
 
   const handleSendNow = () => {
     // Implement send now logic
-    alert('Voice call sent!')
+    message.success('Voice call sent!')
   }
 
   const handleSaveDraft = () => {
     // Implement save draft logic
-    alert('Voice call saved to drafts')
+    message.success('Voice call saved to drafts')
+  }
+
+  const handleBroadcast = () => {
+    // Implement broadcast logic
+    message.success('Broadcasting to selected contacts')
   }
 
   return (
@@ -111,12 +150,26 @@ export default function VoiceCallCampaign() {
 
       <div className="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Phone Numbers</h2>
-        <textarea
-          className="w-full h-32 p-2 border rounded-md focus:ring-[#f15c22] focus:border-[#f15c22]"
+        <Input.TextArea
+          className="mb-4"
+          rows={4}
           placeholder="Enter phone numbers (one per line) or upload a CSV file"
           value={phoneNumbers}
-          onChange={handlePhoneNumberChange}
-        ></textarea>
+          onChange={(e) => setPhoneNumbers(e.target.value)}
+        />
+        {/* <Upload
+          accept=".csv"
+          showUploadList={false}
+          beforeUpload={(file) => {
+            // Implement CSV parsing logic here
+            message.success(`${file.name} parsed successfully`)
+            return false // Prevent default upload behavior
+          }}
+        >
+          <Button icon={<Upload />} style={{ borderColor: '#f15c22', color: '#f15c22' }}>
+            Upload CSV
+          </Button>
+        </Upload> */}
         <div className="mt-2">
             <label htmlFor="csv-upload" className="cursor-pointer inline-flex items-center px-4 py-2 border border-[#f15c22] text-[#f15c22] rounded-md hover:bg-[#f15c22] hover:text-white transition-colors">
               <Upload
@@ -138,13 +191,21 @@ export default function VoiceCallCampaign() {
         <h2 className="text-xl font-semibold mb-4">Audio Handling</h2>
         {!audioFile ? (
           <div className="flex space-x-4">
-            <button
+            <Button
+              type="primary"
+              icon={<Mic />}
               onClick={startRecording}
-              className={`px-4 py-2 rounded-md ${isRecording ? 'bg-red-500 text-white' : 'bg-[#f15c22] text-white'} flex items-center`}
+              style={{ backgroundColor: '#f15c22', borderColor: '#f15c22' }}
             >
-              <Mic className="w-5 h-5 mr-2" />
               {isRecording ? 'Recording...' : 'Start Recording'}
-            </button>
+            </Button>
+            {/* <Upload
+              accept="audio/*"
+              showUploadList={false}
+              onChange={handleFileUpload}
+            >
+              <Button icon={<Upload />}>Upload Audio</Button>
+            </Upload> */}
             <label htmlFor="audio-upload" className="cursor-pointer inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
               <Upload
               className="w-5 h-5 mr-2"
@@ -166,28 +227,49 @@ export default function VoiceCallCampaign() {
           <div>
             <div className="flex items-center mb-4">
               <audio ref={audioRef} src={audioFile.url} className="hidden" />
-              <button onClick={playAudio} className="p-2 text-[#f15c22] hover:text-[#d94d1a]">
-                <Play className="w-6 h-6" />
-              </button>
-              <button onClick={pauseAudio} className="p-2 text-[#f15c22] hover:text-[#d94d1a]">
-                <Pause className="w-6 h-6" />
-              </button>
-              <span className="ml-2">{audioFile.name}</span>
+              <Button onClick={playAudio} icon={<Play />} style={{ color: '#f15c22' }} />
+              <Button onClick={pauseAudio} icon={<Pause />} style={{ color: '#f15c22' }} />
+              <Input
+                value={audioName}
+                onChange={(e) => setAudioName(e.target.value)}
+                style={{ width: '200px', marginLeft: '8px' }}
+              />
             </div>
             <div className="flex space-x-2">
-              <button onClick={saveAsTemplate} className="px-4 py-2 bg-[#f15c22] text-white rounded-md hover:bg-[#d94d1a] transition-colors flex items-center">
-                <Save className="w-5 h-5 mr-2" />
-                {isSaving ? 'Saving...' : 'Save as Template'}
-              </button>
-              <button onClick={deleteAudio} className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors flex items-center">
-                <Trash2 className="w-5 h-5 mr-2" />
+              <Button
+                onClick={saveAsTemplate}
+                icon={<Save />}
+                style={{ backgroundColor: '#f15c22', borderColor: '#f15c22', color: 'white' }}
+                loading={isSaving}
+              >
+                Save as Template
+              </Button>
+              <Button onClick={deleteAudio} icon={<Trash2 />} danger>
                 Delete
-              </button>
-              <button onClick={downloadAudio} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center">
-                <Download className="w-5 h-5 mr-2" />
+              </Button>
+              <Button onClick={downloadAudio} icon={<Download />} type="primary" style={{ backgroundColor: '#f15c22', borderColor: '#f15c22' }}>
                 Download
-              </button>
+              </Button>
+              <Button onClick={handleBroadcast} icon={<Users />} style={{ borderColor: '#f15c22', color: '#f15c22' }}>
+                Broadcast
+              </Button>
             </div>
+          </div>
+        )}
+        {isRecording && (
+          <div className="mt-4 flex space-x-2">
+            {isPaused ? (
+              <Button onClick={resumeRecording} icon={<Play />} style={{ borderColor: '#f15c22', color: '#f15c22' }}>
+                Resume
+              </Button>
+            ) : (
+              <Button onClick={pauseRecording} icon={<Pause />} style={{ borderColor: '#f15c22', color: '#f15c22' }}>
+                Pause
+              </Button>
+            )}
+            <Button onClick={stopRecording} icon={<RiStopFill />} danger>
+              Stop
+            </Button>
           </div>
         )}
       </div>
@@ -211,14 +293,19 @@ export default function VoiceCallCampaign() {
           </div>
         </div>
       </div>
+
       <div className="flex justify-end space-x-4">
-        <button onClick={handleSaveDraft} className="px-6 py-2 border border-[#f15c22] text-[#f15c22] rounded-md hover:bg-[#f15c22] hover:text-white transition-colors">
+        <Button onClick={handleSaveDraft} style={{ borderColor: '#f15c22', color: '#f15c22' }}>
           Save as Draft
-        </button>
-        <button onClick={handleSendNow} className="px-6 py-2 bg-[#f15c22] text-white rounded-md hover:bg-[#d94d1a] transition-colors flex items-center">
-          <Send className="w-5 h-5 mr-2" />
+        </Button>
+        <Button
+          onClick={handleSendNow}
+          type="primary"
+          icon={<Send />}
+          style={{ backgroundColor: '#f15c22', borderColor: '#f15c22' }}
+        >
           Send Now
-        </button>
+        </Button>
       </div>
     </div>
   )
